@@ -4,6 +4,7 @@ import Transition2 from '../Transitions/Transition2'
 import Transition3 from '../Transitions/Transition3'
 import TransitionGameExplain from '../Transitions/TransitionGameExplain'
 import TransitionGame from '../Transitions/TransitionGame'
+import TransitionTest from '../Transitions/TransitionTest'
 
 const TRANSITION_LIST = [
   <Transition1 />,
@@ -16,6 +17,7 @@ const TRANSITION_LIST = [
 
 const Panel = ({order = 0}) => {
   return TRANSITION_LIST[order]
+  // return <TransitionTest />
 }
 
 export default Panel

@@ -2,12 +2,15 @@
 
 const API_KEY = "34NXceGVw2v1jGngMT0Wtp1OYxf64LKY";
 const SEARCH_QUERY = "funny cats"
-const API_URL = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&q=${SEARCH_QUERY}&limit=8`;
-
+const OFFSET = Math.floor(Math.random() * 150)
+const API_URL = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${encodeURI(SEARCH_QUERY)}&offset=${OFFSET}&limit=8`;
+console.log(OFFSET)
+console.log(API_URL)
 export const getGifs = async () => {
     try {
         const response = await fetch(API_URL);
-        return response.json();
+        const {data} = await response.json();
+        return data;
     } catch (error) {
         console.error("Error obteniendo GIFs: ", error)
         return [];
