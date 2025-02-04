@@ -5,8 +5,7 @@ const SEARCH_QUERY = "funny cats"
 const OFFSET = Math.floor(Math.random() * 150)
 const API_URL = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${encodeURI(SEARCH_QUERY)}&offset=${OFFSET}&limit=8`;
 const scoreGifAPI = (score) => `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${encodeURI(score)}&limit=1`;
-console.log(OFFSET)
-console.log(API_URL)
+
 export const getGifs = async () => {
     try {
         const response = await fetch(API_URL);
