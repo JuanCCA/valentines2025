@@ -23,59 +23,57 @@ const Game = ({ setScore, isRunning, setShowResults }) => {
   }, []);
 
   useEffect(() => {
+    if (guess.length === 2) {
+      compareGuess(guess);
+    }
+  }, [guess]);
+
+  useEffect(() => {
     if (Object.values(gifMatrix).length > 0) {
       const allGuessed = Object.values(gifMatrix).every(
         (card) => card.selected === true
       );
       if (allGuessed) {
-        setShowResults(true);
+        setTimeout(() => setShowResults(true), 0); // Previene error de actualización en render
       }
     }
   }, [gifMatrix]);
 
-  const handleClick = useCallback(
-    (key) => {
-      setGifMatrix((prevState) => ({
-        ...prevState,
-        [key]: {
-          ...prevState[key],
-          selected: !prevState[key].selected,
-        },
-      }));
-    },
-    [gifMatrix]
-  );
+  const handleClick = useCallback((key) => {
+    setGifMatrix((prevState) => ({
+      ...prevState,
+      [key]: {
+        ...prevState[key],
+        selected: !prevState[key].selected,
+      },
+    }));
+  }, []);
 
-  const compareGuess = useCallback(() => {
-    // Verificar que guess tenga exactamente 2 elementos
+  const compareGuess = (guess) => {
     if (guess.length !== 2) return;
 
     const [firstGuess, secondGuess] = guess;
-
-    // Comparar los IDs de las dos selecciones
     const isMatch = firstGuess.id === secondGuess.id;
 
-    console.log({ guess, isMatch });
-
     if (isMatch) {
-      // Incrementar el puntaje si hay coincidencia
-      setScore((prevScore) => Math.max(prevScore + 10, 0)); // Asegurar que el puntaje no sea negativo
+      setScore((prevScore) => prevScore + 10);
     } else {
-      // Decrementar el puntaje si no hay coincidencia
-      setScore((prevScore) => Math.max(prevScore - 5, 0)); // Asegurar que el puntaje no sea negativo
+      setScore((prevScore) => prevScore - 5);
 
-      // Actualizar el estado de las cartas seleccionadas
-      console.log(gifMatrix);
-      setGifMatrix((prevMatrix) => ({
-        ...prevMatrix,
-        [firstGuess.key]: { selected: false },
-        [secondGuess.key]: { selected: false },
-      }));
+      setTimeout(() => {
+        setGifMatrix((prevMatrix) => ({
+          ...prevMatrix,
+          [firstGuess.key]: { ...prevMatrix[firstGuess.key], selected: false },
+          [secondGuess.key]: {
+            ...prevMatrix[secondGuess.key],
+            selected: false,
+          },
+        }));
+      }, 1000);
     }
 
-    // Reiniciar las selecciones
     setGuess([]);
-  }, [guess, setScore, setGifMatrix, setGuess]);
+  };
 
   if (loading) {
     return (
@@ -102,9 +100,9 @@ const Game = ({ setScore, isRunning, setShowResults }) => {
               width={200}
               height={200}
               className="w-full h-full rounded-xl border-4 border-pink-600"
-              style={{ display: !gifMatrix[key].selected ? "none" : "" }}
+              style={{ display: gifMatrix[key]?.selected ? "" : "none" }}
               onClick={() => {
-                if (!gifMatrix[key].selected) {
+                if (!gifMatrix[key]?.selected) {
                   handleClick(key);
                 }
               }}
@@ -114,12 +112,11 @@ const Game = ({ setScore, isRunning, setShowResults }) => {
               src={interrogante}
               alt={"¿Que será?"}
               className="w-full h-full rounded-xl border-4 border-pink-400 shadow-lg transform transition-all hover:scale-105"
-              style={{ display: gifMatrix[key].selected ? "none" : "" }}
-              onClick={() => {
+              style={{ display: gifMatrix[key]?.selected ? "none" : "" }}
+              onClick={async () => {
                 if (isRunning) {
                   handleClick(key);
-                  setGuess([...guess, { key, id: gif.id }]);
-                  compareGuess();
+                  setGuess((prevGuess) => [...prevGuess, { key, id: gif.id }]);
                 }
               }}
             />

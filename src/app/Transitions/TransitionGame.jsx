@@ -2,6 +2,7 @@ import { useState } from "react";
 import { COLORS } from "@/enums/colors";
 import Game from "../components/Game/Game";
 import Timer from "../components/Game/Timer";
+import TransitionResults from "./TransitionResults";
 
 const TransitionGame = () => {
   const [score, setScore] = useState(0);
@@ -15,11 +16,7 @@ const TransitionGame = () => {
       className="grid gap-4 w-full h-full rounded-3xl text-sky-50 p-6 justify-items-center"
     >
       {showResults ? (
-        <div className="w-full h-full flex items-center justify-center">
-          <div className="text-6xl font-comic-neue mb-4 text-center">
-            Resultados
-          </div>
-        </div>
+        <TransitionResults score={score} time={time} />
       ) : (
         <>
           <div className="flex flex-col w-full items-center">
