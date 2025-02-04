@@ -12,7 +12,7 @@ const TransitionResults = ({ score, time }) => {
   }, []);
 
   const getRewardMessage = (score) => {
-    if (score >= 41) {
+    if (score >= 51) {
       return (
         <div className="text-xl font-comic-neue mb-4 text-center text-yellow-300">
           <div className="text-3xl font-bold">
@@ -27,7 +27,7 @@ const TransitionResults = ({ score, time }) => {
           </span>
         </div>
       );
-    } else if (score >= 30) {
+    } else if (score >= 40) {
       return (
         <div className="text-xl font-comic-neue mb-4 text-center text-yellow-300">
           <div className="text-3xl font-bold">Premio secreto 🎁🤫</div>
