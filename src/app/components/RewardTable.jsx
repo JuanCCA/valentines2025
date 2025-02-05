@@ -4,9 +4,9 @@ const RewardTable = () => {
   const rewards = [
     { score: "> 0", reward: "Un beso 😘" },
     { score: "0 - 9", reward: "Un beso en la boca 💋" },
-    { score: "10 - 39", reward: "Cenita romántica 🍽️✨" },
-    { score: "40 - 50", reward: "Premio secreto 🎁🤫" },
-    { score: "> 51", reward: "Gran premio de San Valentín 2025 ❤️🏆" },
+    { score: "10 - 45", reward: "Cenita romántica 🍽️✨" },
+    { score: "46 - 60", reward: "Premio secreto 🎁🤫" },
+    { score: ">= 61", reward: "Gran premio de San Valentín 2025 ❤️🏆" },
   ];
 
   return (

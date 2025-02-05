@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import RewardTable from "../components/RewardTable";
 import { getScoreGif } from "../api";
 import Image from "next/image";
+import monkeyKiss from "@/gifs/monkey-kiss.gif";
 
 const TransitionResults = ({ score, time }) => {
   const [scoreGif, setScoreGif] = useState(null);
@@ -12,7 +13,7 @@ const TransitionResults = ({ score, time }) => {
   }, []);
 
   const getRewardMessage = (score) => {
-    if (score >= 51) {
+    if (score >= 61) {
       return (
         <div className="text-xl font-comic-neue mb-4 text-center text-yellow-300">
           <div className="text-3xl font-bold">
@@ -27,7 +28,7 @@ const TransitionResults = ({ score, time }) => {
           </span>
         </div>
       );
-    } else if (score >= 40) {
+    } else if (score >= 46) {
       return (
         <div className="text-xl font-comic-neue mb-4 text-center text-yellow-300">
           <div className="text-3xl font-bold">Premio secreto 🎁🤫</div>
@@ -113,6 +114,20 @@ const TransitionResults = ({ score, time }) => {
               </div>
             )}
           </div>
+        </div>
+        <div className="flex justify-center items-center">
+          <Image
+            unoptimized
+            src={monkeyKiss}
+            alt={"Besuqueo"}
+            width={100}
+            height={100}
+            className=" rounded-full border-4 border-yellow-500"
+          />
+        </div>
+        <div className="flex justify-center items-center">
+          Le he mandado a este mono que te de un beso ya que yo no estoy ahi{" "}
+          {"<3"}
         </div>
       </div>
     </>
